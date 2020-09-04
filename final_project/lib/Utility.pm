@@ -257,3 +257,11 @@ sub _swap_lines ( $indexA, $indexB, @file ) {
 sub exists_file($filename) {
     return (!-f $fn_input || !-r $fn_input)
 }
+
+sub missing_question($filename, $question_text) {
+    printf ("%s:\n\tMissing question: %s\n", $filename, $question_text);
+}
+
+sub missing_answer($filename, $answer_text) {
+     printf ("%s:\n\tMissing answer: %s\n", $filename, $answer_text);
+}

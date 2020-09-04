@@ -91,7 +91,9 @@ sub process_master {
                 push( @correct_answers, trim($_) );
             }
         }
+        # say \@correct_answers;
         $question = trim($question);
+c
 
         my ($question_nr) = $question =~ /(^\d{1,3})/;
         $answers{"true"}                        = \@correct_answers;
@@ -109,6 +111,7 @@ sub process_master {
 
 sub process_submissions {
     for my $submission (@submission_filenames) {
+
         # say $submission;
         if ( !-f $submission ) {
             Utility::error_file;
@@ -118,11 +121,12 @@ sub process_submissions {
             Utility::error_access;
             next();
         }
-        my $count = 0;
-        my $file = read_file($submission);
+        my $count         = 0;
+        my $file          = read_file($submission);
         my @raw_questions = split /_{10,}/, $file;
+        $submissions{$submission}->{"nr_of_questions"} = $#raw_questions - 1;
 
-        for (1..$#raw_questions - 1) {
+        for ( 1 .. $#raw_questions - 1 ) {
             my %question_container;
             my @false_answers;
             my @correct_answers;
@@ -132,31 +136,42 @@ sub process_submissions {
             my $question;
 
             for (@question_split) {
-            if ( $_ =~ /.+/ && ( $_ !~ /\[\s\]/ && $_ !~ /\[X\]/ ) ) {
-                $question .= trim($_);
-                $question .= " ";
+                if ( $_ =~ /.+/ && ( $_ !~ /\[\s\]/ && $_ !~ /\[X\]/ ) ) {
+                    $question .= trim($_);
+                    $question .= " ";
+                }
+                elsif ( $_ =~ / \[ \s \] /x ) {
+                    push( @false_answers, trim($_) );
+                }
+                elsif ( $_ =~ / \[ X \] /x ) {
+                    push( @correct_answers, trim($_) );
+                }
             }
-            elsif ( $_ =~ / \[ \s \] /x ) {
-                push( @false_answers, trim($_) );
-            }
-            elsif ( $_ =~ / \[ X \] /x ) {
-                push( @correct_answers, trim($_) );
-            }
-        }
-        $question = trim($question);
-        my ($question_nr) = $question =~ /(^\d{1,3})/;
 
-        if($correct_answers[0] eq $master_file{$question_nr}->{"question_answers"}->{"true"}[0]) {
-            $count++;
+            $question = trim($question);
+            if(!$question) {
+                Utility::missing_question($submission, $master_file{$_}->{"question_text"});
+            }
+            if ($question) {
+            my ($question_nr) = $question =~ /(^\d{1,3})/;
+
+            if ( $correct_answers[0] eq
+                $master_file{$question_nr}->{"question_answers"}->{"true"}[0] )
+            {
+                if($#correct_answers == 0) {
+                     $count++;
+                }
+            }
+
+            $answers{"true"}                        = \@correct_answers;
+            $answers{"false"}                       = \@false_answers;
+            $question_container{"question_text"}    = $question;
+            $question_container{"question_answers"} = \%answers;
+            $submissions{$submission}               = \%question_container;
+            }
+
         }
-     
-        $answers{"true"}                        = \@correct_answers;
-        $answers{"false"}                       = \@false_answers;
-        $question_container{"question_text"}    = $question;
-        $question_container{"question_answers"} = \%answers;    
-        $submissions{$submission} = \%question_container;
-        }
-        say qq($submission \t\t $count / $master_file{"nr_of_questions"} );
+        printf("%s: \t\t%d/%d\n",$submission, $count, $#raw_questions - 1);
     }
 }
 
