@@ -13,6 +13,7 @@ use Getopt::Long;
 use Try::Catch;
 use String::Util "trim";
 use File::Slurp;
+use Data::Dumper;
 
 ####################################################################################################
 #
@@ -56,23 +57,26 @@ elsif ( !-r $fn_input ) {
     exit(1);
 }
 
-state @submissions = split( " ", $args{"submissions"} );
-
+state @submission_filenames = split( " ", $args{"submissions"} );
 process_master();
+process_submissions();
 
 # my %test;
 # $test{1.25} = "jasdfksjdfk";
-# say $test{1.25}; 
+# say $test{1.25};
 
 sub process_master {
     my $text = read_file( $args{"master"} );
     my @raw_questions = split /_{10,}/, $text;
-    # $master_file{"nr_of_questions"} = $#raw_questions - 1;
-    my %answers;
-    my @question_texts;
-    my @false_answers;
-    my @correct_answers;
-    for ( 1 .. $#raw_questions-1) {
+
+    $master_file{"nr_of_questions"} = $#raw_questions - 1;
+
+    for ( 1 .. $#raw_questions - 1 ) {
+        my %question_container;
+        my @false_answers;
+        my @correct_answers;
+        my @question_text;
+        my %answers;
         my @question_split = split "\n", $raw_questions[$_];
         my $question;
         for (@question_split) {
@@ -81,20 +85,79 @@ sub process_master {
                 $question .= " ";
             }
             elsif ( $_ =~ / \[ \s \] /x ) {
-                push(@false_answers, trim($_));
+                push( @false_answers, trim($_) );
             }
             elsif ( $_ =~ / \[ X \] /x ) {
-                push(@correct_answers, trim($_));
+                push( @correct_answers, trim($_) );
             }
         }
         $question = trim($question);
 
         my ($question_nr) = $question =~ /(^\d{1,3})/;
-        push( @question_texts, $question );
-    }
-    # say @false_answers;
+        $answers{"true"}                        = \@correct_answers;
+        $answers{"false"}                       = \@false_answers;
+        $question_container{"question_text"}    = $question;
+        $question_container{"question_answers"} = \%answers;
+        $master_file{$question_nr}              = \%question_container;
 
-    $master_file{"question_texts"} = \@question_texts;
+    }
+
+  # say @false_answers;
+  # say Dumper($master_file{26}->{"question_answers"}->{"false"}); ACCESS Syntax
+  # say $answers->{"true"}[0];
+}
+
+sub process_submissions {
+    for my $submission (@submission_filenames) {
+        # say $submission;
+        if ( !-f $submission ) {
+            Utility::error_file;
+            next();
+        }
+        elsif ( !-r $submission ) {
+            Utility::error_access;
+            next();
+        }
+        my $count = 0;
+        my $file = read_file($submission);
+        my @raw_questions = split /_{10,}/, $file;
+
+        for (1..$#raw_questions - 1) {
+            my %question_container;
+            my @false_answers;
+            my @correct_answers;
+            my @question_text;
+            my %answers;
+            my @question_split = split "\n", $raw_questions[$_];
+            my $question;
+
+            for (@question_split) {
+            if ( $_ =~ /.+/ && ( $_ !~ /\[\s\]/ && $_ !~ /\[X\]/ ) ) {
+                $question .= trim($_);
+                $question .= " ";
+            }
+            elsif ( $_ =~ / \[ \s \] /x ) {
+                push( @false_answers, trim($_) );
+            }
+            elsif ( $_ =~ / \[ X \] /x ) {
+                push( @correct_answers, trim($_) );
+            }
+        }
+        $question = trim($question);
+        my ($question_nr) = $question =~ /(^\d{1,3})/;
+
+        if($correct_answers[0] eq $master_file{$question_nr}->{"question_answers"}->{"true"}[0]) {
+            $count++;
+        }
+     
+        $answers{"true"}                        = \@correct_answers;
+        $answers{"false"}                       = \@false_answers;
+        $question_container{"question_text"}    = $question;
+        $question_container{"question_answers"} = \%answers;    
+        $submissions{$submission} = \%question_container;
+        }
+        say qq($submission \t\t $count / $master_file{"nr_of_questions"} );
+    }
 }
 
 sub parse_args($args) {
