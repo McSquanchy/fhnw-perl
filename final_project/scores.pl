@@ -36,6 +36,41 @@ use Data::Dumper;
 #
 #####################################################################################################
 
+
+# Basic idea
+#      master <- read_file(master)
+#      create a master hash with the structure:
+#           %master = [
+#                        $"nr_of questions": int,
+#                        %"questions":  [
+#                            "1" : [
+#                                $"true_answer": string,
+#                                @"false_answers": string
+#                            ]
+#                        ]
+# ]
+#       split submission-string by \s
+#       create submissions hash with the structure:
+#            %submssions = [
+#                $"nr_of_submissions" = int
+#                %"submission1": [
+#                    "nr_of_questions": int,
+#                    "correct_answers": int,
+#                    "total_answers": int
+#                    "questions": [
+#                        "1": [
+#                            "true_answer": string,
+#                            "false_answers": string
+#                        ]
+#                    ],
+#                    @"missing_questions": string,
+#                    @"missing_answers": string
+#                ]
+#            ]
+#
+#       go through each submission -> print necessary stats
+#       furthermore -> gather statistics over all submissions
+
 state %args;
 state %submissions;
 state %master_file;
@@ -93,7 +128,6 @@ sub process_master {
         }
         # say \@correct_answers;
         $question = trim($question);
-c
 
         my ($question_nr) = $question =~ /(^\d{1,3})/;
         $answers{"true"}                        = \@correct_answers;
