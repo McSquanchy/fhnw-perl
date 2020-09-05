@@ -94,7 +94,9 @@ elsif ( !-r $fn_input ) {
 
 state @submission_filenames = split( " ", $args{"submissions"} );
 process_master();
-process_submissions();
+# process_submissions();
+
+say Dumper(%master_file);
 
 # my %test;
 # $test{1.25} = "jasdfksjdfk";
@@ -130,6 +132,8 @@ sub process_master {
         $question = trim($question);
 
         my ($question_nr) = $question =~ /(^\d{1,3})/;
+        $question =~ s/\d+.\s?//;
+        # $question =~ s/\://;
         $answers{"true"}                        = \@correct_answers;
         $answers{"false"}                       = \@false_answers;
         $question_container{"question_text"}    = $question;
