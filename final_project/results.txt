@@ -1,0 +1,218 @@
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID00001010
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID00001010: 		26/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID006431
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID006431: 		22/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID014664
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID014664: 		25/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID022325
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID022325: 		0/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID024065
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID024065: 		0/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID026152
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID026152: 		26/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID02716151
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID02716151: 		26/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID027188781
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID027188781: 		26/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID030630
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID030630: 		0/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID034105
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID034105: 		0/19
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID035776
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID035776: 		23/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID035829
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID035829: 		1/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID036016
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID036016: 		0/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID039411
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID039411: 		24/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID040957
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID040957: 		18/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID051667
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID051667: 		24/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID055561
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID055561: 		3/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID055647
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID055647: 		0/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID059797
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID059797: 		20/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID060139
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID060139: 		0/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID063552
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID063552: 		21/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID068972
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID068972: 		24/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID069464
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID069464: 		26/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID0698781
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID0698781: 		26/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID070839
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID070839: 		0/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID072753
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID072753: 		18/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID074783
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID074783:
+	Missing question: The 'while' loop in Perl...
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID074783: 		19/30
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID074872
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID074872: 		24/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID075446
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID075446: 		14/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID077964
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID077964: 		20/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID084733
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID084733: 		19/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID087409
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID087409: 		22/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID089348
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID089348: 		0/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID089679
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID089679: 		25/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID092733
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID092733: 		27/29
+Reading file:	data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt
+	Successfully processed data/AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file_2017.txt...
+			Found 30 questions
+
+Reading file:	data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID095097
+data/AssignmentDataFiles/SampleResponses/20170828-092520-FHNW_entrance_exam-ID095097: 		25/29

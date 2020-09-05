@@ -53,12 +53,12 @@ sub error_args {
     warn "\nWrong flags. See --help for more information.\n\n";
 }
 
-sub error_file {
-    warn "\nSupplied argument isn't a file!\n\n";
+sub error_file($fn) {
+    warn "\nArgument '$fn' isn't a file!\n\n";
 }
 
-sub error_access {
-    warn "\nSupplied file cannot be read from!\n\n";
+sub error_access($fn) {
+    warn "\nSupplied '$fn' file cannot be read from!\n\n";
 }
 
 sub _usage {
@@ -186,47 +186,6 @@ sub process_questions($filename) {
     # printf ("%d\n", $dmg);
 }
 
-# sub process_questions ($content ) {
-#     my @array;
-#     tie @array, 'Tie::File', $content or die "dmg";
-#     my @answer_lines;
-
-#     my $count = 0;
-
-#     for ( 0 .. $#array ) {
-#         if ( $array[$_] =~ /(\[ \].+)/ ) {
-
-#             # say $array[$_];
-#             push( @answer_lines, $_ );
-#             $count++;
-#         }
-#     }
-
-#     my $iterator = 0;
-#     while ( $iterator < $#answer_lines ) {
-#         @array[
-#           $answer_lines[$iterator],
-#           $answer_lines[ $iterator + 1 ],
-#           $answer_lines[ $iterator + 2 ],
-#           $answer_lines[ $iterator + 3 ],
-#           $answer_lines[ $iterator + 4 ]
-#           ]
-#           = @array[
-#           shuffle(
-#               $answer_lines[$iterator],
-#               $answer_lines[ $iterator + 1 ],
-#               $answer_lines[ $iterator + 2 ],
-#               $answer_lines[ $iterator + 3 ],
-#               $answer_lines[ $iterator + 4 ]
-#           )
-#           ];
-#         $iterator += 5;
-#     }
-
-#     untie @array;
-
-# }
-
 # ------------------------------------------------
 #
 # I/O
@@ -235,12 +194,6 @@ sub process_questions($filename) {
 
 sub write_to_file ( $fh, $content ) {
     print $fh $content;
-}
-
-sub _swap_lines ( $indexA, $indexB, @file ) {
-    my $tmp_line = $file[$indexA];
-    $file[$indexA] = $file[$indexB];
-    $file[$indexB] = $tmp_line;
 }
 
 1;
@@ -264,4 +217,13 @@ sub missing_question($filename, $question_text) {
 
 sub missing_answer($filename, $answer_text) {
      printf ("%s:\n\tMissing answer: %s\n", $filename, $answer_text);
+}
+
+sub start_process($fn) {
+    printf ("Reading file:\t%s\n", $fn);
+}
+
+sub master_parsed($fn, $question_nr) {
+    my $string = $question_nr == 1 ? "question" : "questions";
+    printf "\tSuccessfully processed $fn...\n\t\t\tFound $question_nr $string\n\n";
 }

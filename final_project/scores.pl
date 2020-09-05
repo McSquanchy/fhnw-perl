@@ -84,25 +84,26 @@ my @paths    = parse_args( \%args );
 my $fn_input = $paths[0];
 
 if ( !-f $fn_input ) {
-    Utility::error_file;
+    Utility::error_file($fn_input);
     exit(1);
 }
 elsif ( !-r $fn_input ) {
-    Utility::error_access;
+    Utility::error_access($fn_input);
     exit(1);
 }
 
 state @submission_filenames = split( " ", $args{"submissions"} );
 process_master();
-# process_submissions();
+process_submissions();
 
-say Dumper(%master_file);
+# say Dumper(%master_file);
 
 # my %test;
 # $test{1.25} = "jasdfksjdfk";
 # say $test{1.25};
 
 sub process_master {
+    Utility::start_process($args{"master"});
     my $text = read_file( $args{"master"} );
     my @raw_questions = split /_{10,}/, $text;
 
@@ -141,7 +142,7 @@ sub process_master {
         $master_file{$question_nr}              = \%question_container;
 
     }
-
+Utility::master_parsed($args{"master"}, $master_file{"nr_of_questions"});
   # say @false_answers;
   # say Dumper($master_file{26}->{"question_answers"}->{"false"}); ACCESS Syntax
   # say $answers->{"true"}[0];
@@ -152,13 +153,14 @@ sub process_submissions {
 
         # say $submission;
         if ( !-f $submission ) {
-            Utility::error_file;
+            Utility::error_file($submission);
             next();
         }
         elsif ( !-r $submission ) {
-            Utility::error_access;
+            Utility::error_access($submission);
             next();
         }
+        Utility::start_process($submission);
         my $count         = 0;
         my $file          = read_file($submission);
         my @raw_questions = split /_{10,}/, $file;
@@ -193,7 +195,7 @@ sub process_submissions {
             if ($question) {
             my ($question_nr) = $question =~ /(^\d{1,3})/;
 
-            if ( $correct_answers[0] eq
+            if ( $correct_answers[0] eq 
                 $master_file{$question_nr}->{"question_answers"}->{"true"}[0] )
             {
                 if($#correct_answers == 0) {
