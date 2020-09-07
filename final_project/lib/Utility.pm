@@ -225,5 +225,9 @@ sub start_process($fn) {
 
 sub master_parsed($fn, $question_nr) {
     my $string = $question_nr == 1 ? "question" : "questions";
-    printf "\tSuccessfully processed $fn...\n\t\t\tFound $question_nr $string\n\n";
+    printf ("\tSuccessfully processed %d...\n\t\t\tFound %d\n\n", $fn, $question_nr);
+}
+
+sub print_results($fn, $correct, $total) {
+    printf ("||\t%d: %d / %d\t||", $fn, $correct, $total);
 }
