@@ -36,7 +36,6 @@ use Data::Dumper;
 #
 #####################################################################################################
 
-
 # Basic idea
 #      master <- read_file(master)
 #      create a master hash with the structure:
@@ -55,7 +54,7 @@ use Data::Dumper;
 #                $"nr_of_submissions" = int
 #                %"submission1": [
 #                    "nr_of_questions": int,
-#                    "correct_answers": int,
+#                    "true_answer": int,
 #                    "total_answers": int
 #                    "questions": [
 #                        "1": [
@@ -72,30 +71,57 @@ use Data::Dumper;
 #       furthermore -> gather statistics over all submissions
 
 state %args;
-state %submissions;
-state %master_file;
+state %master;
 state %results;
+state @submission_filenames;
+state $verbose = '';
 
 # Task 1 - Get Arguments
-GetOptions( \%args, "master=s", "submissions=s", "help!", )
-  or die(Utility::error_args);
+# GetOptions("master=s" => \$master_filename, "submissions=s{,}" => \@submission_filenames, 'verbose!' => \$verbose, "help!" => usage(), )
+#   or die(Utility::error_args);
 
-my @paths    = parse_args( \%args );
-my $fn_input = $paths[0];
+$args{"submissions"} = \@submission_filenames;
 
-if ( !-f $fn_input ) {
-    Utility::error_file($fn_input);
-    exit(1);
-}
-elsif ( !-r $fn_input ) {
-    Utility::error_access($fn_input);
-    exit(1);
-}
+GetOptions(
+    \%args, "master=s",
+    "submissions=s{,}" => \@submission_filenames,
+    'verbose!', "help" => sub { Utility::usage(); exit(0); }
+) or die(Utility::error_args);
 
-state @submission_filenames = split( " ", $args{"submissions"} );
+# GetOptions("submissions=s{,}" => \@submission_filenames)
+#   or die(Utility::error_args);
+
+# my @paths    = parse_args( \%args );
+# my $fn_input = $paths[0];
+
+# if ( !-f $fn_input ) {
+#     Utility::error_file($fn_input);
+#     exit(1);
+# }
+# elsif ( !-r $fn_input ) {
+#     Utility::error_access($fn_input);
+#     exit(1);
+# }
+
+# state @submission_filenames = split( " ", $args{"submissions"} );
 process_master();
 process_submissions();
+evaluate_submissions();
 
+# say $master{2}->{"question_text"};
+# say $master{"nr_of_questions"};
+# say join "\n", $master{2}->{"question_answers"}{"false"}->@*;
+# process_submissions();
+# say join "\n", @submission_filenames;
+# say $master_filename;
+# say $verbose;
+# say "-----------------------------------------";
+# say $args{"submissions"}[0];
+# say "-----------------------------------------";
+
+# say $args{"help"};
+# say $args{"verbose"};
+# say %args{"submissions"};
 # say Dumper(%master_file);
 
 # my %test;
@@ -103,115 +129,194 @@ process_submissions();
 # say $test{1.25};
 
 sub process_master {
-    Utility::start_process($args{"master"});
-    my $text = read_file( $args{"master"} );
-    my @raw_questions = split /_{10,}/, $text;
+    Utility::start_master_parse();
 
-    $master_file{"nr_of_questions"} = $#raw_questions - 1;
+    if ( Utility::exists_file( $args{"master"} ) ) {
+        Utility::error_access( $args{"master"} );
+        exit(1);
+    }
+    Utility::start_process( $args{"master"} );
+    my $file_content = read_file( $args{"master"} );
+    my @questions_raw = split /_{10,}/, $file_content;
 
-    for ( 1 .. $#raw_questions - 1 ) {
+    my $count = 0;
+    foreach my $question (@questions_raw) {
+
+        next if !( trim( join "\n", $question ) =~ /^\d+\.\s/ );
+
         my %question_container;
         my @false_answers;
-        my @correct_answers;
-        my @question_text;
+        my $true_answer;
         my %answers;
-        my @question_split = split "\n", $raw_questions[$_];
-        my $question;
-        for (@question_split) {
-            if ( $_ =~ /.+/ && ( $_ !~ /\[\s\]/ && $_ !~ /\[X\]/ ) ) {
-                $question .= trim($_);
-                $question .= " ";
+        my $question_string;
+        my @question_split = split "\n", $question;
+        for my $question_line (@question_split) {
+            if ( $question_line =~ /.+/
+                && (   $question_line !~ /\[\s\]/
+                    && $question_line !~ /\[[X,x]\]/ ) )
+            {
+                $question_string .= trim($question_line);
+                $question_string .= " ";
             }
-            elsif ( $_ =~ / \[ \s \] /x ) {
-                push( @false_answers, trim($_) );
+            elsif ( $question_line =~ / \[ \s \] /x ) {
+                push( @false_answers, trim( $question_line =~ s/\[\s\]//r ) );
             }
-            elsif ( $_ =~ / \[ X \] /x ) {
-                push( @correct_answers, trim($_) );
+            elsif ( $question_line =~ / \[ X \] /x ) {
+                $true_answer = trim( $question_line =~ s/\[[X,x]\]//r );
             }
         }
-        # say \@correct_answers;
-        $question = trim($question);
-
-        my ($question_nr) = $question =~ /(^\d{1,3})/;
-        $question =~ s/\d+.\s?//;
-        # $question =~ s/\://;
-        $answers{"true"}                        = \@correct_answers;
+        my ($question_nr) = $question_string =~ /(^\d{1,3})/;
+        $question_string = trim( $question_string =~ s/^\d{1,3}\.\s//r );
+        $question_string =~ s/:$//;
+        $answers{"true"}                        = $true_answer;
         $answers{"false"}                       = \@false_answers;
-        $question_container{"question_text"}    = $question;
+        $question_container{"question_text"}    = $question_string;
         $question_container{"question_answers"} = \%answers;
-        $master_file{$question_nr}              = \%question_container;
-
+        $master{$question_nr}                   = \%question_container;
+        $master{"nr_of_questions"}              = $question_nr;
     }
-Utility::master_parsed($args{"master"}, $master_file{"nr_of_questions"});
-  # say @false_answers;
-  # say Dumper($master_file{26}->{"question_answers"}->{"false"}); ACCESS Syntax
-  # say $answers->{"true"}[0];
+    Utility::file_parsed( $master{"nr_of_questions"} );
 }
 
 sub process_submissions {
+    Utility::start_submission_parse();
     for my $submission (@submission_filenames) {
-
-        # say $submission;
-        if ( !-f $submission ) {
-            Utility::error_file($submission);
-            next();
-        }
-        elsif ( !-r $submission ) {
-            Utility::error_access($submission);
-            next();
-        }
         Utility::start_process($submission);
-        my $count         = 0;
-        my $file          = read_file($submission);
-        my @raw_questions = split /_{10,}/, $file;
-        $submissions{$submission}->{"nr_of_questions"} = $#raw_questions - 1;
+        if ( Utility::exists_file($submission) ) {
+            Utility::error_skip();
+            next;
+        }
 
-        for ( 1 .. $#raw_questions - 1 ) {
+        my $file_content = read_file($submission);
+        my @questions_raw = split /_{10,}/, $file_content;
+
+        my $count = 0;
+        foreach my $question (@questions_raw) {
+
+            next if !( trim( join "\n", $question ) =~ /^\d+\.\s/ );
+
             my %question_container;
             my @false_answers;
-            my @correct_answers;
-            my @question_text;
+            my $true_answer;
             my %answers;
-            my @question_split = split "\n", $raw_questions[$_];
-            my $question;
-
-            for (@question_split) {
-                if ( $_ =~ /.+/ && ( $_ !~ /\[\s\]/ && $_ !~ /\[X\]/ ) ) {
-                    $question .= trim($_);
-                    $question .= " ";
+            my $question_string;
+            my @question_split = split "\n", $question;
+            for my $question_line (@question_split) {
+                if (
+                    $question_line =~ /.+/
+                    && (   $question_line !~ /\[\s\]/
+                        && $question_line !~ /\[[X,x]\]/ )
+                  )
+                {
+                    $question_string .= trim($question_line);
+                    $question_string .= " ";
                 }
-                elsif ( $_ =~ / \[ \s \] /x ) {
-                    push( @false_answers, trim($_) );
+                elsif ( $question_line =~ / \[ \s \] /x ) {
+                    push( @false_answers,
+                        trim( $question_line =~ s/\[\s\]//r ) );
                 }
-                elsif ( $_ =~ / \[ X \] /x ) {
-                    push( @correct_answers, trim($_) );
-                }
-            }
-
-            $question = trim($question);
-            if(!$question) {
-                Utility::missing_question($submission, $master_file{$_}->{"question_text"});
-            }
-            if ($question) {
-            my ($question_nr) = $question =~ /(^\d{1,3})/;
-
-            if ( $correct_answers[0] eq 
-                $master_file{$question_nr}->{"question_answers"}->{"true"}[0] )
-            {
-                if($#correct_answers == 0) {
-                     $count++;
+                elsif ( $question_line =~ / \[ X \] /x ) {
+                    $true_answer = trim( $question_line =~ s/\[[X,x]\]//r );
                 }
             }
-
-            $answers{"true"}                        = \@correct_answers;
+            my ($question_nr) = $question_string =~ /(^\d{1,3})/;
+            $question_string = trim( $question_string =~ s/^\d{1,3}\.\s//r );
+            $question_string =~ s/:$//;
+            $answers{"true"}                        = $true_answer;
             $answers{"false"}                       = \@false_answers;
-            $question_container{"question_text"}    = $question;
+            $question_container{"question_text"}    = $question_string;
             $question_container{"question_answers"} = \%answers;
-            $submissions{$submission}               = \%question_container;
+            $results{$submission}{$question_nr}     = \%question_container;
+            $count++;
+        }
+        Utility::file_parsed($count);
+
+        # $results{"nr_of_questions"}              = $question_nr;
+        # my $file_content          = read_file($submission);
+        # my @raw_questions = split /_{10,}/, $file_content;
+        # for ( 1 .. $#raw_questions - 1 ) {
+        #     my %question_container;
+        #     my @false_answers;
+        #     my @true_answer;
+        #     my @question_text;
+        #     my %answers;
+        #     my @question_split = split "\n", $raw_questions[$question_line];
+        #     my $question;
+
+#     for (@question_split) {
+#         if ( $question_line =~ /.+/ && ( $question_line !~ /\[\s\]/ && $question_line !~ /\[X\]/ ) ) {
+#             $question .= trim($question_line);
+#             $question .= " ";
+#         }
+#         elsif ( $question_line =~ / \[ \s \] /x ) {
+#             push( @false_answers, trim($question_line) );
+#         }
+#         elsif ( $question_line =~ / \[ X \] /x ) {
+#             push( @true_answer, trim($question_line) );
+#         }
+#     }
+
+#     $question = trim($question);
+#     if(!$question) {
+#         Utility::missing_question($submission, $master_file{$question_line}->{"question_text"});
+#     }
+#     if ($question) {
+#     my ($question_nr) = $question =~ /(^\d{1,3})/;
+
+       #     if ( $true_answer[0] eq
+       #         $master_file{$question_nr}->{"question_answers"}->{"true"}[0] )
+       #     {
+       #         if($#true_answer == 0) {
+       #                 $count++;
+       #         }
+       #     }
+
+        #     $answers{"true"}                        = \@true_answer;
+        #     $answers{"false"}                       = \@false_answers;
+        #     $question_container{"question_text"}    = $question;
+        #     $question_container{"question_answers"} = \%answers;
+        #     $submissions{$submission}               = \%question_container;
+        #     }
+
+        # }
+        # printf("%s: \t\t%d/%d\n",$submission, $count, $#raw_questions - 1);
+    }
+}
+
+sub evaluate_submissions {
+    Utility::start_evaluation();
+    while ( my ( $key, $value ) = each(%results) ) {
+        my $questions_found = scalar(keys $ref{$key}->%*);
+        say $questions_found;
+        Utility::start_process($key);
+        my $count = 0;
+        while ( my ( $innerkey, $innervalue ) = each( $value->%* ) ) {
+            if ( $innervalue->{"question_answers"}{"true"} ) {
+
+                if ( $master{$innerkey}{"question_answers"}{"true"} eq
+                    $innervalue->{"question_answers"}{"true"} )
+                {
+                    if (
+                        scalar(
+                            $master{$innerkey}{"question_answers"}{"false"}->@*
+                        ) == scalar(
+                            $innervalue->{"question_answers"}{"false"}->@*
+                        )
+                      )
+                    {
+                        $count++;
+                    }
+                }
+
             }
 
+            # say $innervalue->{"question_answers"}{"true"};
+            # say $results{$key}{$innerkey}{"question_answers"}{"true"};
         }
-        printf("%s: \t\t%d/%d\n",$submission, $count, $#raw_questions - 1);
+        say $count;
+
+        # my $size = scalar (keys $value->%*);
+        # say $value{"question_answers"};
     }
 }
 
@@ -243,4 +348,13 @@ sub parse_args($args) {
         @paths[1] = $args->{"submissions"};
     }
     return @paths;
+}
+
+sub usage {
+    print
+"Usage:\n\trandomizer command syntax:\n\n\t\t./randomizer [options] [arguments]\n\n\tGeneric command options:\n\n";
+    print "\t\t-f, --file:\tSpecify the file to be processed.\n";
+    print "\t\t-o, --output:\tSpecify the output file.\n";
+    print "\t\t-h, --help:\tRead more detailed instructions.\n";
+    print "\n";
 }

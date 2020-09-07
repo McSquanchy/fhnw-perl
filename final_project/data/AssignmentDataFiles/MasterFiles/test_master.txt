@@ -15,6 +15,7 @@ Warning: Each question has only one correct answer. Answers to
          will be scored as zero.
 
 ________________________________________________________________________________
+
 1. The name of this class is:
     [ ] Introduction to Perl for Programmers
     [ ] Introduction to Perl for Programmers and Other Crazy People
@@ -40,6 +41,8 @@ ________________________________________________________________________________
 
     [ ] To delete the correct answer
     [ ] To put an X in the box beside the correct answer
+
+_______________________________________________________________________________
 
 
 

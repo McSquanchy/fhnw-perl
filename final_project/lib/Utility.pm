@@ -9,6 +9,9 @@ use Text::LineNumber;
 our @questions;
 our $fh_output;
 our $question_separator;
+use Term::ReadKey;
+
+( $wchar, $hchar, $wpixels, $hpixels ) = GetTerminalSize();
 
 # ------------------------------------------------
 #
@@ -58,12 +61,11 @@ sub error_file($fn) {
 }
 
 sub error_access($fn) {
-    warn "\nSupplied '$fn' file cannot be read from!\n\n";
+    warn "\nSupplied file '$fn' cannot be read from!\n\n";
 }
 
-sub _usage {
-    print
-"Usage:\n\trandomizer command syntax:\n\n\t\t./randomizer [options] [arguments]\n\n\tGeneric command options:\n\n";
+sub usage {
+    print "Usage:\n\trandomizer command syntax:\n\n\t\t./randomizer [options] [arguments]\n\n\tGeneric command options:\n\n";
     print "\t\t-f, --file:\tSpecify the file to be processed.\n";
     print "\t\t-o, --output:\tSpecify the output file.\n";
     print "\t\t-h, --help:\tRead more detailed instructions.\n";
@@ -78,15 +80,14 @@ sub _usage {
 
 sub get_processed_filename($initialfile) {
     sub {
-        sprintf '%04d%02d%02d-%02d%02d%02d',
-          $_[5] + 1900, $_[4] + 1, $_[3], $_[2], $_[1], $_[0];
-      }
-      ->(localtime) . "-" . $initialfile;
+        sprintf '%04d%02d%02d-%02d%02d%02d', $_[5] + 1900, $_[4] + 1, $_[3], $_[2], $_[1], $_[0];
+        }
+        ->(localtime) . "-" . $initialfile;
 }
 
 sub extract_filename($fn) {
     my $system_separator = File::Spec->catfile( '', '' );
-    my @split = split /$system_separator/, $fn;
+    my @split            = split /$system_separator/, $fn;
     return $split[-1];
 }
 
@@ -149,11 +150,13 @@ sub split_content(@content) {
 }
 
 sub swap_questions ( $firstsep, $secondsep, $array ) {
+
     # printf( "%d - %d: ", $firstsep, $secondsep );
     reset 'answer_lines';
     my @answers_lines;
     for ( $firstsep .. $secondsep - 1 ) {
         if ( @{$array}[$_] =~ /\[\s?\]/ ) {
+
             # print "match, ";
             push( @answer_lines, $_ );
         }
@@ -206,28 +209,55 @@ sub write_to_file ( $fh, $content ) {
 # How to use
 # Code Commentary
 
-
 sub exists_file($filename) {
-    return (!-f $fn_input || !-r $fn_input)
+    return ( !-f $filename || !-r $filename );
 }
 
-sub missing_question($filename, $question_text) {
-    printf ("%s:\n\tMissing question: %s\n", $filename, $question_text);
+sub missing_question ( $filename, $question_text ) {
+    printf( "%s:\n\tMissing question: %s\n", $filename, $question_text );
 }
 
-sub missing_answer($filename, $answer_text) {
-     printf ("%s:\n\tMissing answer: %s\n", $filename, $answer_text);
+sub missing_answer ( $filename, $answer_text ) {
+    printf( "%s:\n\tMissing answer: %s\n", $filename, $answer_text );
 }
 
 sub start_process($fn) {
-    printf ("Reading file:\t%s\n", $fn);
+    printf( "%s\n",                       "-" x $wchar );
+    printf( "\nProcessing file:\t\t%s\n", $fn );
 }
 
-sub master_parsed($fn, $question_nr) {
-    my $string = $question_nr == 1 ? "question" : "questions";
-    printf ("\tSuccessfully processed %d...\n\t\t\tFound %d\n\n", $fn, $question_nr);
+sub file_parsed($question_nr) {
+    printf( "Number of questions found:\t%d\n", $question_nr );
+    printf( "\n%s\n",                           "-" x $wchar );
 }
 
-sub print_results($fn, $correct, $total) {
-    printf ("||\t%d: %d / %d\t||", $fn, $correct, $total);
+sub start_submission_parse {
+    printf( "%s\n\n", "#" x $wchar );
+    printf("Processing submissions\n\n");
+
+    # printf("\n\n%s\n", "#"x$wchar);
+}
+
+sub finish_submission {
+    printf ""
+}
+
+sub error_skip() {
+    printf "Couldn't read file, skipping...\n\n";
+}
+
+sub start_evaluation {
+    printf( "\n%s\n\n", "#" x $wchar );
+    printf("Evaluating submissions\n\n");
+}
+
+sub start_master_parse {
+    printf( "\n%s\n\n", "#" x $wchar );
+    printf("Processing master\n\n");
+
+    # printf("\n\n%s\n", "#"x$wchar);
+}
+
+sub print_results ( $fn, $correct, $total ) {
+    printf( "||\t%d: %d / %d\t||", $fn, $correct, $total );
 }
