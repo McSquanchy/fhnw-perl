@@ -213,12 +213,12 @@ sub exists_file($filename) {
     return ( !-f $filename || !-r $filename );
 }
 
-sub missing_question ( $filename, $question_text ) {
-    printf( "%s:\n\tMissing question: %s\n", $filename, $question_text );
+sub missing_question ($question_text ) {
+    printf( "\tMissing question: %s\n", $question_text );
 }
 
-sub missing_answer ( $filename, $answer_text ) {
-    printf( "%s:\n\tMissing answer: %s\n", $filename, $answer_text );
+sub missing_answer ($answer_text, $question_nr ) {
+    printf( "\tMissing answer in question %d: %s\n", $question_nr, $answer_text );
 }
 
 sub start_process($fn) {
@@ -227,7 +227,7 @@ sub start_process($fn) {
 }
 
 sub file_parsed($question_nr) {
-    printf( "Number of questions found:\t%d\n", $question_nr );
+    printf( "\nNumber of questions found:\t%d\n", $question_nr );
     printf( "\n%s\n",                           "-" x $wchar );
 }
 
