@@ -106,7 +106,6 @@ GetOptions(
 
 # state @submission_filenames = split( " ", $args{"submissions"} );
 
-
 process_master();
 process_submissions();
 evaluate_submissions();
@@ -170,7 +169,13 @@ sub process_submissions {
         }
 
         my $file_content = read_file($submission);
+        my $string = "================================================================================
+                                  END OF EXAM
+================================================================================";
+
+        $file_content =~ s/$string//g;
         my @questions_raw = split /_{10,}/, $file_content;
+
 
         my $count = 0;
         foreach my $question (@questions_raw) {
@@ -239,10 +244,21 @@ sub process_submissions {
         for my $key (keys %master) {
             push(@master_questions, $master{$key}{"question_text"});
         }
-        my @arr = keys $results{$submission}->%*;
+        # my @arr = keys $results{$submission}->%*;
+        # my @test;
+        # for (@arr) {
+        #     # say ;
+        #     push(@test, $results{$submission}{$_}{"question_text"});
+        # }
         for my $key (keys $results{$submission}->%*) {
             # say $results{$key}{"question_text"};
-            # push(@t, $results{$key}{"question_text"});
+            push(@t, $results{$submission}{$key}{"question_text"});
+        }
+ 
+        for (@master_questions) {
+            if (!($_ ~~ @t)) {
+                Utility::missing_question($_);
+            }
         }
         # for my $val (@master_questions) {
         #     if ( !($val ~~ @submission_questions)) {
