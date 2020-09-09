@@ -60,6 +60,8 @@ catch {
     exit(1);
 };
 
+print_header();
+
 my $raw_content = read_file($fn_input);
 my $replaced_content =
   $raw_content =~ s/\[X\]/\[ \]/gr;    #substitution [X] with [ ]
@@ -108,4 +110,19 @@ sub parse_args($args) {
         @paths[1] = $args->{"output"};
     }
     return @paths;
+}
+
+sub print_header {
+my $text = 
+"
+______                _                 _              
+| ___ \              | |               (_)             
+| |_/ /__ _ _ __   __| | ___  _ __ ___  _ _______ _ __ 
+|    // _` | '_ \ / _` |/ _ \| '_ ` _ \| |_  / _ \ '__|
+| |\ \ (_| | | | | (_| | (_) | | | | | | |/ /  __/ |   
+\_| \_\__,_|_| |_|\__,_|\___/|_| |_| |_|_/___\___|_|
+
+                                  created by McSquanchy   
+"
+printf "%s", $text;
 }

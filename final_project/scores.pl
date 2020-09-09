@@ -105,7 +105,7 @@ GetOptions(
 # }
 
 # state @submission_filenames = split( " ", $args{"submissions"} );
-
+print_header();
 process_master();
 process_submissions();
 evaluate_submissions();
@@ -408,7 +408,8 @@ sub usage {
 
 sub print_header {
     my $text = 
-" ____                                         
+"
+ ____                                         
 /\  _`\                                       
 \ \,\L\_\    ___    ___   _ __    __    ____  
  \/_\__ \   /'___\ / __`\/\`'__\/'__`\ /',__\ 
@@ -416,6 +417,7 @@ sub print_header {
    \ `\____\ \____\ \____/\ \_\\ \____\/\____/
     \/_____/\/____/\/___/  \/_/ \/____/\/___/ 
 
-                        created by McSquanchy   
-    "
+                         created by McSquanchy   
+"
+printf "%s", $text;
 }
